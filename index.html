@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Monthly Set Split Planner</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 500px;
+      margin: 50px auto;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    label, select, input {
+      display: block;
+      margin-bottom: 15px;
+    }
+    #output {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Monthly Set Split Planner</h2>
+
+  <label for="numSets">Number of Sets:</label>
+  <input type="number" id="numSets" min="1" max="12" value="2">
+
+  <label for="startMonth">Set 1 Month:</label>
+  <select id="startMonth">
+    <option>January</option>
+    <option>February</option>
+    <option>March</option>
+    <option>April</option>
+    <option>May</option>
+    <option>June</option>
+    <option>July</option>
+    <option>August</option>
+    <option>September</option>
+    <option>October</option>
+    <option>November</option>
+    <option>December</option>
+  </select>
+
+  <button onclick="generatePlan()">Generate Plan</button>
+
+  <div id="output"></div>
+
+  <script>
+    const months = [
+      "January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
+    ];
+
+    function generatePlan() {
+      const numSets = parseInt(document.getElementById("numSets").value);
+      const startMonth = document.getElementById("startMonth").value;
+      const startIndex = months.indexOf(startMonth);
+      const gap = Math.floor(12 / numSets);
+      
+      const output = document.getElementById("output");
+      output.innerHTML = ""; // Clear previous output
+      
+      for (let i = 0; i < numSets; i++) {
+        const monthIndex = (startIndex + i * gap) % 12;
+        const monthName = months[monthIndex];
+        const p = document.createElement("p");
+        p.textContent = `Set ${i + 1}: ${monthName}`;
+        output.appendChild(p);
+      }
+    }
+  </script>
+
+</body>
+</html>
